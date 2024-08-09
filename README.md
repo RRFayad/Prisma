@@ -55,6 +55,7 @@ model User {
 
   async function main() {
     // prisma logic here
+    const user = await prisma.user.create({ data: { name: "Renan" } });
   }
 
   main()
@@ -63,3 +64,5 @@ model User {
       await prisma.$disconnect();
     });
   ```
+
+  - And that's how prisma works overall, with the prisma file handling the generator, the db connectoin and the schemas (which defines our types and DBs schemas)

@@ -3,7 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // prisma logic here
+  const user = await prisma.user.create({ data: { name: "Renan" } });
+  console.log(user);
 }
 
 main()
