@@ -66,3 +66,34 @@ model User {
   ```
 
   - And that's how prisma works overall, with the prisma file handling the generator, the db connectoin and the schemas (which defines our types and DBs schemas)
+
+#### Models
+
+- each model define a table in my db:
+
+```prisma
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String?
+  isAdmin Boolean
+  largeNumber BigInt
+  preferences Json
+  blob Bytes  // File data?
+  blob2 Unsupported("") // Very specifc
+}
+
+model Post {
+  rating Float
+  decimalNumber Decimal
+  createdAt DateTime
+}
+```
+
+- It has 4 parts:
+  - name (id, name, email etc);
+  - types (some examples above)
+  - modifier (in the example above the ? to say it's optional)
+  - attribures (starts with @)
+
+#### Relations
