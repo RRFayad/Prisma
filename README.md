@@ -2,7 +2,7 @@
 
 https://www.youtube.com/watch?v=RebA5J-rlwg
 
-#### Intro
+### Intro
 
 - We are going to use Postgres
 
@@ -28,6 +28,8 @@ datasource db {
 
 - The generator is what will run our prisma schema
   - **Important** The database must be aleready created
+
+### Schema
 
 #### Defining a Basic Model
 
@@ -204,3 +206,21 @@ model UserPreference {
 
 - Block Level - for the whole model
   - `@@unique([age, name])`, `@@id([title, authorId])`
+
+#### Enums
+
+- A great way of setting a list of values, e.g.:
+
+```prisma
+model User {
+    role           Role            @default(BASIC)
+  }
+  enum Role {
+    BASIC
+    ADMIN
+  }
+```
+
+### DB Operations
+
+- npx prisma migrate dev
