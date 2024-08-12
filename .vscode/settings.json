@@ -1,0 +1,4 @@
+{
+  "prisma.enableCodeLens": true,
+  "prisma.fileWatcher": true
+}
