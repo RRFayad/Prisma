@@ -224,3 +224,51 @@ model User {
 ### DB Operations
 
 - npx prisma migrate dev
+- npx prisma generate
+  - Rememring it regenerates the prisma client (which will help us with types and dx)
+  - Sometimes it does not work giving us the types, so we can reload the window or inspect the generated TS file
+
+#### Create
+
+```typescript
+async function main() {
+  const user = await prisma.user.create({
+    data: {
+      name: "Renan",
+      email: "test.com",
+      age: 34,
+    },
+  });
+  console.log(user);
+}
+```
+
+- We can also add a include and select to manipulate the returned results
+
+```typescript
+async function main() {
+  await prisma.user.deleteMany();
+  const user = await prisma.user.create({
+    data: {
+      name: "Renan",
+      email: "test.com",
+      age: 34,
+      userPreference: {
+        create: {
+          emailUpdates: true,
+        },
+      },
+    },
+    // include: { userPreference: true }, // Will include relation values
+    select: {
+      name: true, // Will define which columns I want to return
+      userPreference: { select: { id: true } }, // Bringing the relation in the select
+    },
+  });
+  console.log(user);
+}
+```
+
+##### Add Many
+
+- We could have used createMany and populate data with an array `const user = await prisma.user.createMany({data:[{}, {}, {}]})`
