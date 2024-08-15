@@ -272,3 +272,57 @@ async function main() {
 ##### Add Many
 
 - We could have used createMany and populate data with an array `const user = await prisma.user.createMany({data:[{}, {}, {}]})`
+  - In createMany we can't use select
+
+#### Read Data
+
+##### findUnique():
+
+```typescript
+const user = await prisma.user.findUnique({ where: { email: "test.com" } });
+```
+
+- As in our model we defined as block-level the unique `@@unique([age, name])`, prisma wgives us this option:
+
+```typescript
+const user = await prisma.user.findUnique({ where: { age_name: { age: 34, name: "lorem" } } });
+```
+
+##### findFirst():
+
+- We can not use findUnique for an attribute that is not unique, so we can use findFirst()
+
+##### fidnMany()
+
+- Returns an array of all the users that matches the where filter
+
+##### Filters
+
+- distinct
+  - will return only the first element that attend that distinct rule
+
+```typescript
+const user = await prisma.user.findMany({
+  where: {
+    name: "Renan",
+    age: 32,
+  },
+  // distinct: ["name"],   // Will return only the first "Renan"
+  distinct: ["name", "age"], // Will return only the first "Renan" who is 32
+});
+```
+
+- pagination
+
+```typescript
+const user = await prisma.user.findMany({
+  where: {
+    name: "Renan",
+  },
+  orderBy: {
+    age: "desc" | "asc"
+  }
+  take: 2, // Will return 2 users that name Renan,
+  skip: 1 // Skip the first Renan
+});
+```
