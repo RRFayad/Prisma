@@ -326,3 +326,44 @@ const user = await prisma.user.findMany({
   skip: 1 // Skip the first Renan
 });
 ```
+
+#### Advanced Filtering
+
+- More 'complex' where:
+
+  - equals (in this case its the same result as where:{name:"Renan"})
+    ```typescript
+    const user = await prisma.user.findMany({
+      where: {
+        name: { equals: "Renan" },
+      },
+    });
+    ```
+  - not - that are different from the added value (in this case i reurns all users not named "Renan")
+    ```typescript
+    const user = await prisma.user.findMany({
+      where: {
+        name: { not: "Renan" },
+      },
+    });
+    ```
+  - in - all the data which value matches the arrays
+    ```typescript
+    const user = await prisma.user.findMany({
+      where: {
+        name: { in: ["Renan", "Lorem"] },
+      },
+    });
+    ```
+  - notIn - all the data which value is diffrerent from the array's values
+  - lt: - Less Than e.g. `where:{age: {lt: 20}}`
+  - lte: - Less Than or Equal e.g. `where:{age: {lte: 20}}`
+  - gt: Greater Than
+  - gt: Greater Than or Equal
+  - contains: contains a srintg snippet e.g. `where:{email: {contains: "@gmail.com"}}`
+  - endsWith: constains a string that ends with e.g. `where:{email: {endsWith: "@gmail.com"}}`
+  - startsWith: constains a string that ends with e.g. `where:{email: {startsWith: "test@"}}`
+
+  - AND:[{}]: Define logics that all must match, e.g.: `where: {AND:[{ email: {startsWith: "test1" } }, {email: {endsWith: "@gmail.com" } } ]}`
+  - OR:[{}]: Same for OR, e.g.: `where: {OR:[{ email: {endsWith: "@hotmail.com" } }, {email: {endsWith: "@gmail.com" } } ]}`
+  - NOT:[{}]: Same, but negating
