@@ -392,3 +392,25 @@ const user = await prisma.user.findMany({
     },
   });
   ```
+
+#### Updating data
+
+- update() and updateMany()
+
+  ```typescript
+  const user = await prisma.user.update({
+    where: {
+      email: "test.com",
+    },
+    data: {
+      email: "updated-email@test.com",
+    },
+  });
+  ```
+
+- Prisma expects a unique attribute to query, if it is not, we have to run a findFirst to get the user, and than update the user
+
+- updateMany do not work with include and select
+
+- Updating integers can also:
+  - increment, decrement ,multiply, divide and set

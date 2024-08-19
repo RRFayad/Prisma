@@ -4,7 +4,15 @@ const prisma = new PrismaClient(/*{ log: ["query"] }*/); // We can add this log:
 
 async function main() {
   // await prisma.user.deleteMany();
-  const user = await prisma.user.findMany({ where: { name: "test.com" } });
+
+  const user = await prisma.user.update({
+    where: {
+      email: "test.com",
+    },
+    data: {
+      email: "updated-email@test.com",
+    },
+  });
   console.log(user);
 }
 
