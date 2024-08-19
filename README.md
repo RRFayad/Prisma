@@ -414,3 +414,11 @@ const user = await prisma.user.findMany({
 
 - Updating integers can also:
   - increment, decrement ,multiply, divide and set
+
+#### Updating Relations
+
+- connect and disconnect
+
+#### Deleting Data
+
+- delete() and deleteMany()
