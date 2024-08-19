@@ -367,3 +367,28 @@ const user = await prisma.user.findMany({
   - AND:[{}]: Define logics that all must match, e.g.: `where: {AND:[{ email: {startsWith: "test1" } }, {email: {endsWith: "@gmail.com" } } ]}`
   - OR:[{}]: Same for OR, e.g.: `where: {OR:[{ email: {endsWith: "@hotmail.com" } }, {email: {endsWith: "@gmail.com" } } ]}`
   - NOT:[{}]: Same, but negating
+
+#### Relationship Filtering
+
+    ```typescript
+    const user = await prisma.user.findMany({
+      where: {
+        userPreference: { emailUpdates: true },   // our relation
+      },
+    });
+    ```
+
+- Also, for finding many we can query with every, some and none;
+
+- When quering relations, we also have 'is' and 'isNot':
+
+  ```typescript
+  const user = await prisma.post.findMany({
+    where: {
+      auth: {
+        is: { age: 27 },
+        isNot: { name: "any name I don't want" },
+      },
+    },
+  });
+  ```
